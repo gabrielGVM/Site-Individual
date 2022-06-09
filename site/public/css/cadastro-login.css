@@ -20,13 +20,17 @@
     box-shadow: 5px 5px 10px;
     }
 
-.btn{
+span{
+    font-size: 3vh;
+}
+
+/* .btn{
     font-family: monospace;
     margin-top: 15px;
-    /* background-image: linear-gradient(to right, rgba(20, 15, 15, 0), rgb(242, 239, 239));
+    background-image: linear-gradient(to right, rgba(20, 15, 15, 0), rgb(242, 239, 239));
     background-image: linear-gradient(-90deg, purple, #7fff7f);
     color: rgb(101, 22, 45);
-    background-color: rgba(0, 0, 0, 0.497); */
+    background-color: rgba(0, 0, 0, 0.497);
     background-color: #32b8cdbb;
     font-size: 20px;
     cursor: pointer;
@@ -40,11 +44,11 @@
     border-radius: 10px;
     transform: scale(1.05);
     box-shadow: 1px 1px 5px #32b8cdbc;
-    /* background-image: url(imagens/Cienccia02.jpg);
+    background-image: url(imagens/Cienccia02.jpg);
     background-clip: text;
     -webkit-background-clip: text;
-    color: transparent; */
-}
+    color: transparent;
+} */
 
 .btn a {
     color: rgb(21, 21, 21);
@@ -52,13 +56,65 @@
     /* text-shadow: 50px 50px 65px #338fbd; */
     /* text-decoration-color: black; */
 }
+.spanErro {
+    font-size: 0.7em;
+    color: darkred;
+    margin-bottom: 3%;
+}
 
-input{
+.btn-login {
+    border-radius: 7px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-size: 0.85em;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    padding: 10px 50px;
+    cursor: pointer;
+}
+
+.btn-home {
+    color: #ffffff;
+    border-radius: 7px;
+    margin: 10px;
+    padding: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+
+#cadastro {
+    background-color: transparent;
+    border: 1px solid #ffffff;
+}
+
+#cadastro:hover {
+    background-color: #fdfdf6;
+    color: #32b8cdbc;
+    border: 1px solid #32b8cdbc;
+    transition: 0.5s;
+}
+
+#login {
+    background-color: transparent;
+    color: #666667;
+    border: 1px solid #666667;
+    transition: 0.5s;
+}
+
+#login:hover {
+    background-color: #32b8cdbc;
+    color: #ffffff;
+    border: 1px solid #32b8cdbc;
+    transition: 0.5s;
+}
+
+/* input{
     height: 29px;
     width: 300px;
     border-radius: 10px;
     border: none;
-}
+} */
 /* .container .btn{
     font-weight: 600;
     border-radius: 4px;
@@ -130,7 +186,7 @@ input{
     height: 80vh;
 }
 
-.btn-cad-moto{
+/* .btn-cad-moto{
     border-radius: 7px;
     text-transform: uppercase;
     color: #000000;
@@ -147,7 +203,7 @@ input{
     padding: 10px;
     transition: 0.5s;
     cursor: pointer;
-}
+} */
 
 .fundo{
     float: left;
@@ -156,3 +212,22 @@ input{
     flex-direction: column;
     align-items: center;
 }
+
+.ipt {
+    height: 5vh;
+    border: none;
+    background-color: #ecf0f1;
+    margin: 1vh;
+    width: 100%;
+    display: inline-block;
+    background-color: #ecf0f1;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+
+/* .input-all {
+} */

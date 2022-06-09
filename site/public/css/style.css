@@ -72,7 +72,7 @@ ul a{
 
 .banner{
     height:632px;
-    background-image: url("../imagens/pexels-cottonbro-9665193.jpg");
+    background-image: url("../assets/imgs/pexels-cottonbro-9665193.jpg");
     background-size: cover;
 }
 .banner .container{
@@ -98,7 +98,7 @@ ul a{
 
 .sobre_nos{
     height:630px;
-    background-image: url("../imagens/pexels-cottonbro-9665193.jpg");
+    background-image: url("../assets/imgs/pexels-cottonbro-9665193.jpg");
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -146,7 +146,7 @@ ul a{
 
 .temas {
     height:632px;
-    background-image: url("../imagens/Ciencia.jpg");
+    background-image: url("../assets/imgs/Ciencia.jpg");
     background-size: cover;
     border-top: 5px solid darkturquoise;
 }

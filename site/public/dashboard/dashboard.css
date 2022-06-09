@@ -92,8 +92,8 @@ li{
 
 
 .dash-right .avisos {
-    width: 50%;
-    margin-left: 25%;
+    width: 170%;
+    margin-left: -35%;
     color: rgb(216, 216, 216);
     font-family: "Exo 2", sans-serif;
   }
@@ -123,7 +123,7 @@ li{
   
   .dash-right .avisos .div-form textarea {
     width: 100%;
-    border: 3px solid #d76112;
+    border: 3px solid #32b8cd;
     background-color: white;
     border-radius: 5px;
   }
@@ -137,7 +137,7 @@ li{
     font-size: 18px;
     padding: 10px 15px;
     color: white;
-    background-color: #d76112;
+    background-color: #32b8cd;
     width: 120px;
   }
   
@@ -150,8 +150,9 @@ li{
     font-size: 14px;
     padding: 5px 8px;
     color: white;
-    background-color: #d76112;
+    background-color: #32b8cd;
     width: 80px;
+    
   }
   
   .publicacao {
@@ -161,7 +162,7 @@ li{
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
-    border-bottom: 3px solid #d76112;
+    border-bottom: 3px solid #32b8cd;
     padding: 20px;
   }
   
@@ -187,3 +188,28 @@ li{
   .div-buttons > * {
     margin-left: 30px;
   }
+
+  .btn-login {
+    border-radius: 7px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-size: 0.85em;
+    margin-top: 5vh;
+    margin-bottom: 1vh;
+    padding: 10px 50px;
+    cursor: pointer;
+}
+
+  #login {
+    background-color: transparent;
+    color: #666667;
+    border: 1px solid #666667;
+    transition: 0.5s;
+}
+
+#login:hover {
+    background-color: #32b8cdbc;
+    color: #ffffff;
+    border: 1px solid #32b8cdbc;
+    transition: 0.5s;
+}

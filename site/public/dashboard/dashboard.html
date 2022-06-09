@@ -12,11 +12,11 @@
     <div class="header">
         <div class="container-dash">
             <div class="logo_header">
-                <img src="../imagens/icone2.png" alt="" >
+                <img src="../assets/imgs/icone2.png" alt="" >
                 <h1>Digital<br>Science</h1>
             </div>
             <ul>
-                <li>SAIR</li>
+                <button class="btn-login" id="login">SAIR</button>
             </ul>
         </div>
     </div>
@@ -24,7 +24,7 @@
 <div class="fundo-card">    
     <div class="card">
         <li><a href="">|</a></li>
-        <li><a href="">Oceanos</a></li>
+        <li><a href="oceanos.html">Oceanos</a></li>
         <li><a href="">|</a></li>
         <li><a href="">Buraco Negro</a></li>
         <li><a href="">|</a></li>
@@ -38,10 +38,11 @@
     </div> 
 </div><br><br>
 
+<div class="fundo-card">
+    <div class="card">
+        <div class="dash-right">
 
-<div class="dash-right">
-
-    <div class="avisos">
+        <div class="avisos">
         <div class="container">
             <h1>Fórum</h1>
             <div class="div-form">
@@ -70,14 +71,15 @@
                             <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5"></textarea>
                         </label>
                         <br>
-                    <button>Enviar</button>
+                    <button class="btn-login" id="login">Enviar</button>
                 </form>
             </div>
             <h1>Mural de eventos</h1>
             <div class="div-results">
                 <div id="feed_container" class="feed-container">
                 </div>
-
+    </div>
+</div>
 </body>
 </html>
 <script>
