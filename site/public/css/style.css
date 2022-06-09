@@ -211,3 +211,10 @@ ul a{
 }
 
 
+.btn_entrar{
+    background: none;
+    border: none;
+    color: #32b8cd;
+    text-shadow: -1px -1px 20px #32b8cd;
+    cursor: pointer;
+}

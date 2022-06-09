@@ -73,7 +73,7 @@
                         <input id="ipt_email" type="text" placeholder="Insira um email">
                             <h4>Senha:</h4>
                         <input id="ipt_senha" type="password" placeholder="Insira sua senha">
-                        <button onclick="validacaao()" class="btn"><a href="login.html">Entrar</a></button>
+                        <button onclick="cadastrar()" class="btn">Entrar</button>
                        </div>
                     </div>
                 </div>
@@ -83,4 +83,42 @@
     </div>  
 </body>
 </html>
+<script>
+    function cadastrar(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var nome = req.body.nomeServer;
+    var cpf = req.body.cpfServer;
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+
+    // Faça as validações dos valores
+     if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (cpf == undefined) {
+        res.status(400).send("Seu CPF está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else {
+        
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.cadastrar(nome, cpf, email, senha)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+</script>
 

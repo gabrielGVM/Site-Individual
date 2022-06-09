@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitalScience</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+</head>
+<body onload="validarSessao(), atualizarFeed(), VerificaAvaliacao()">
+    <div class="header">
+        <div class="container-dash">
+            <div class="logo_header">
+                <img src="../imagens/icone2.png" alt="" >
+                <h1>Digital<br>Science</h1>
+            </div>
+            <ul>
+                <li>SAIR</li>
+            </ul>
+        </div>
+    </div>
+
+<div class="fundo-card">    
+    <div class="card">
+        <li><a href="">|</a></li>
+        <li><a href="">Oceanos</a></li>
+        <li><a href="">|</a></li>
+        <li><a href="">Buraco Negro</a></li>
+        <li><a href="">|</a></li>
+        <li><a href="">Nikola Tesla</a></li>
+        <li><a href="">|</a></li>
+        <li><a href="">Bobina de Tesla</a></li>
+        <li><a href="">|</a></li>
+        <li><a href="">Albert Einstein</a></li>
+        <li><a href="">|</a></li>
+        <li><a href="">Teoria da relatividade</a></li>
+    </div> 
+</div><br><br>
+
+
+<div class="dash-right">
+
+    <div class="avisos">
+        <div class="container">
+            <h1>Fórum</h1>
+            <div class="div-form">
+                <form id="form_postagem" method="post" onsubmit="return publicar()">
+                    <label>
+                            Nome:
+                            <br>
+                            <input name="nome" id="nome" maxlength="100" type="text">
+                        </label>
+                        <br>
+                        <label>
+                            Pergunta:
+                            <br>
+                            <input name="pergunta" id="pergunta" maxlength="100" type="text">
+                        </label>
+                        <br>
+                        <label>
+                            Contato:
+                            <br>
+                            <input name="contato" id="contato" maxlength="100" type="text">
+                        </label>
+                        <br><br>
+                        <label>
+                            Descrição (máximo de 250 caracteres):
+                            <br>
+                            <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5"></textarea>
+                        </label>
+                        <br>
+                    <button>Enviar</button>
+                </form>
+            </div>
+            <h1>Mural de eventos</h1>
+            <div class="div-results">
+                <div id="feed_container" class="feed-container">
+                </div>
+
+</body>
+</html>
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    
+    function limparFormulario() {
+        document.getElementById("form_postagem").reset();
+    }
+
+    function publicar() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        var corpo = {
+
+            
+            nome: form_postagem.nome.value,
+            pergunta: form_postagem.pergunta.value,
+            contato: form_postagem.contato.value,
+            descricao: form_postagem.descricao.value
+        }
+
+        fetch(`/avisos/publicar/${idUsuario}`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(corpo)
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+                window.location = "/dashboard/dashboard.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+
+    }
+
+    function editar(idforum) {
+        sessionStorage.ID_POSTAGEM_EDITANDO = idforum;
+        console.log("cliquei em editar - " + idforum);
+        window.alert("Você será redirecionado à página de edição do aviso de id número: " + idforum);
+        window.location = "/dashboard/edicao-aviso.html"
+
+    }
+
+    function deletar(idforum) {
+        console.log("Criar função de apagar post escolhido - ID" + idforum);
+        fetch(`/avisos/deletar/${idforum}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.location = "/dashboard/dashboard.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function atualizarFeed() {
+        //aguardar();
+        fetch("/avisos/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        // criando e manipulando elementos do HTML via JavaScript
+                        var divPublicacao = document.createElement("div");
+                        var spanId = document.createElement("span");
+                        var spanNome = document.createElement("span");
+                        var spanPergunta = document.createElement("span");
+                        var spanContato = document.createElement("span");
+                        var divDescricao = document.createElement("div");
+                        var divButtons = document.createElement("div");
+                        var btnEditar = document.createElement("button");
+                        var btnDeletar = document.createElement("button");
+
+                        spanId.innerHTML = "ID: <b>" + publicacao.idforum + "</b>";
+                        spanNome.innerHTML = "NOME: <b>" + publicacao.nome + "</b>";
+                        spanPergunta.innerHTML = "Pergunta: <b>" + publicacao.pergunta + "</b>";
+                        spanContato.innerHTML = "Contato: <b>" + publicacao.contato + "</b>";
+                        divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
+                        btnEditar.innerHTML = "Editar";
+                        btnDeletar.innerHTML = "Deletar";
+
+                        divPublicacao.className = "publicacao";
+                        spanId.id = "inputNumero" + publicacao.idforum;
+                        spanNome.className = "publicacao-titulo";
+                        spanPergunta.className = "publicacao-titulo";
+                        spanContato.className = "publicacao-titulo";
+                        divDescricao.className = "publicacao-descricao";
+
+                        divButtons.className = "div-buttons"
+
+                        btnEditar.className = "publicacao-btn-editar"
+                        btnEditar.id = "btnEditar" + publicacao.idEvento;
+                        btnEditar.setAttribute("onclick", `editar(${publicacao.idforum})`);
+
+                        btnDeletar.className = "publicacao-btn-editar"
+                        btnDeletar.id = "btnDeletar" + publicacao.idAviso;
+                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idforum})`);
+
+                        divPublicacao.appendChild(spanId);
+                        divPublicacao.appendChild(spanNome);
+                        divPublicacao.appendChild(spanPergunta);
+                        divPublicacao.appendChild(spanContato);
+                        divPublicacao.appendChild(divDescricao);
+                        divPublicacao.appendChild(divButtons);
+                        divButtons.appendChild(btnEditar);
+                        divButtons.appendChild(btnDeletar);
+                        feed.appendChild(divPublicacao);
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
+    }
+
+    function testar() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_postagem")));
+
+        var divResultado = document.getElementById("div_feed");
+
+        divResultado.appendChild(document.createTextNode(formulario.get("descricao")));
+        divResultado.innerHTML = formulario.get("descricao");
+
+        finalizarAguardar();
+
+        return false;
+    }
+</script>
